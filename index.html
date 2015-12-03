@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="App">
+<head>
+	<title>NGMask - Douglas Lira</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+	<!-- -->
+	<script src="app.js"></script>
+	<script src="controller.js"></script>
+	<!-- -->
+</head>
+<body>
+	<div ng-controller="Main">
+		<input type="text" ng-mask ng-model="number" mask="##,##" value-max="10,20" />
+	</div>
+</body>
+</html>
