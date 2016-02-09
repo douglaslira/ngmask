@@ -1,0 +1,27 @@
+{
+  "name": "ngmask",
+  "homepage": "https://github.com/douglaslira/ngmask",
+  "authors": [
+    "Douglas Lira <douglas.lira.web@gmail.com>"
+  ],
+  "description": "Directive created to apply mask on input values",
+  "main": "",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "AngularJS",
+    "mask",
+    "directive",
+    "douglas",
+    "lira"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
