@@ -8,9 +8,9 @@
 (function () {
     'use strict';
 
-    angular.module('nyx.components', [])
-        .factory('maskCheck', maskCheck)
-        .directive('nyxMask', nyxMask);
+    angular.module('nyx.components', []);
+    angular.module('nyx.components').factory('maskCheck', maskCheck);
+    angular.module('nyx.components').directive('nyxMask', nyxMask);
 
     maskCheck.$inject = [];
 
@@ -18,19 +18,21 @@
         return {
             new: function (m, v) {
 
+                var me = this;
+
                 if (m === '###.###.###-##|##.###.###/####-##') {
                     if (v.length > 14) {
-                        return maskID.new('##.###.###/####-##', v);
+                        return me.new('##.###.###/####-##', v);
                     } else {
-                        return maskID.new('###.###.###-##', v);
+                        return me.new('###.###.###-##', v);
                     }
                 }
 
                 if (m === '## ####-####|## #####-####') {
                     if (v.length > 12) {
-                        return maskID.new('## #####-####', v);
+                        return me.new('## #####-####', v);
                     } else {
-                        return maskID.new('## ####-####', v);
+                        return me.new('## ####-####', v);
                     }
                 }
 
@@ -39,15 +41,14 @@
                 var character = "#";
                 var separator = "|";
                 var maskUse = "";
-                v = maskID.empty(v);
+                var cleanMask = "";
+                v = me.empty(v);
                 if (v === "") {
                     return v
-                }
-                ;
+                };
                 var temp = m.split(separator);
                 var dif = 1000;
 
-                var vm = v;
                 // removing the mask value existing
                 for (var i = 0; i < v.length; i++) {
                     if (!isNaN(v.substr(i, 1))) {
@@ -73,7 +74,7 @@
 
                         if (temp[i].substr(j, 1) === "[") {
                             validate = 1
-                        };
+                        }
                     }
                     for (var j = 0; j < v.length; j++) {
                         temp[i] = mult + temp[i];
@@ -83,7 +84,7 @@
                 // check which masks use
                 if (temp.length === 1) {
                     maskUse = temp[0];
-                    var cleanMask = "";
+                    cleanMask = "";
                     for (var j = 0; j < maskUse.length; j++) {
                         if (maskUse.substr(j, 1) === character) {
                             cleanMask = cleanMask + character;
@@ -93,7 +94,7 @@
                 } else {
                     // clean different characters of the character of the mask
                     for (var i = 0; i < temp.length; i++) {
-                        var cleanMask = "";
+                        cleanMask = "";
                         for (var j = 0; j < temp[i].length; j++) {
                             if (temp[i].substr(j, 1) === character) {
                                 cleanMask = cleanMask + character;
@@ -151,7 +152,6 @@
 
             empty: function (v) {
                 var vclean = "";
-                var len = v.length;
                 for (var i = 0; i < 30; i++) {
                     if (v.substr(i, 1) === " ") {
                     } else {
@@ -185,10 +185,8 @@
                     scope.$apply(function () {
                         scope.ngModel = maskCheck.new(newMask, scope.ngModel);
                         var newValue = parseFloat(scope.ngModel.replace('.', '').replace(',', ''));
-                        if (newCheck) {
-                            if (newValue > newCheck) {
-                                scope.ngModel = maskCheck.new(newMask, scope.valueMax);
-                            }
+                        if (newCheck && newValue > newCheck) {
+                            scope.ngModel = maskCheck.new(newMask, scope.valueMax);
                         } else {
                             scope.ngModel = maskCheck.new(newMask, scope.ngModel);
                         }
@@ -199,4 +197,4 @@
 
     }
 
-});
+})();
