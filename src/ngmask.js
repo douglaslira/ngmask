@@ -185,10 +185,8 @@
                     scope.$apply(function () {
                         scope.ngModel = maskCheck.new(newMask, scope.ngModel);
                         var newValue = parseFloat(scope.ngModel.replace('.', '').replace(',', ''));
-                        if (newCheck) {
-                            if (newValue > newCheck) {
-                                scope.ngModel = maskCheck.new(newMask, scope.valueMax);
-                            }
+                        if (newCheck && newValue > newCheck) {
+                            scope.ngModel = maskCheck.new(newMask, scope.valueMax);
                         } else {
                             scope.ngModel = maskCheck.new(newMask, scope.ngModel);
                         }
