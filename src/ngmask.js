@@ -8,7 +8,7 @@
 (function () {
     'use strict';
 
-    angular.module('NyXJS', [])
+    angular.module('nyx.components', [])
         .factory('maskCheck', maskCheck)
         .directive('nyxMask', nyxMask);
 
@@ -18,7 +18,7 @@
         return {
             new: function (m, v) {
 
-                if (m == '###.###.###-##|##.###.###/####-##') {
+                if (m === '###.###.###-##|##.###.###/####-##') {
                     if (v.length > 14) {
                         return maskID.new('##.###.###/####-##', v);
                     } else {
@@ -26,7 +26,7 @@
                     }
                 }
 
-                if (m == '## ####-####|## #####-####') {
+                if (m === '## ####-####|## #####-####') {
                     if (v.length > 12) {
                         return maskID.new('## #####-####', v);
                     } else {
@@ -40,7 +40,7 @@
                 var separator = "|";
                 var maskUse = "";
                 v = maskID.empty(v);
-                if (v == "") {
+                if (v === "") {
                     return v
                 }
                 ;
@@ -59,15 +59,21 @@
 
                 // dynamic format mask
                 for (var i = 0; i < temp.length; i++) {
-                    var mult = "";
-                    var validate = 0;
+                    var mult = "", validate = 0;
                     for (var j = 0; j < temp[i].length; j++) {
-                        if (temp[i].substr(j, 1) == "]") {
+
+                        if (temp[i].substr(j, 1) === "]") {
                             temp[i] = temp[i].substr(j + 1);
                             break;
                         }
-                        if (validate == 1)mult = mult + temp[i].substr(j, 1);
-                        if (temp[i].substr(j, 1) == "[")validate = 1;
+
+                        if (validate === 1) {
+                            mult = mult + temp[i].substr(j, 1);
+                        }
+
+                        if (temp[i].substr(j, 1) === "[") {
+                            validate = 1
+                        };
                     }
                     for (var j = 0; j < v.length; j++) {
                         temp[i] = mult + temp[i];
@@ -75,11 +81,11 @@
                 }
 
                 // check which masks use
-                if (temp.length == 1) {
+                if (temp.length === 1) {
                     maskUse = temp[0];
                     var cleanMask = "";
                     for (var j = 0; j < maskUse.length; j++) {
-                        if (maskUse.substr(j, 1) == character) {
+                        if (maskUse.substr(j, 1) === character) {
                             cleanMask = cleanMask + character;
                         }
                     }
@@ -89,7 +95,7 @@
                     for (var i = 0; i < temp.length; i++) {
                         var cleanMask = "";
                         for (var j = 0; j < temp[i].length; j++) {
-                            if (temp[i].substr(j, 1) == character) {
+                            if (temp[i].substr(j, 1) === character) {
                                 cleanMask = cleanMask + character;
                             }
                         }
@@ -117,11 +123,12 @@
                 if (v.length > tam) {
                     v = v.substr(0, tam);
                 } else if (v.length < tam) {
-                    var masct = "";
-                    var j = v.length;
+                    var masct = "", j = v.length;
                     for (var i = maskUse.length - 1; i >= 0; i--) {
-                        if (j == 0) break;
-                        if (maskUse.substr(i, 1) == character) {
+                        if (j === 0) {
+                            break;
+                        }
+                        if (maskUse.substr(i, 1) === character) {
                             j--;
                         }
                         masct = maskUse.substr(i, 1) + masct;
@@ -146,7 +153,7 @@
                 var vclean = "";
                 var len = v.length;
                 for (var i = 0; i < 30; i++) {
-                    if (v.substr(i, 1) == " ") {
+                    if (v.substr(i, 1) === " ") {
                     } else {
                         vclean = vclean + v.substr(i, 1);
                     }
