@@ -152,10 +152,12 @@
 
             empty: function (v) {
                 var vclean = "";
-                for (var i = 0; i < 30; i++) {
-                    if (v.substr(i, 1) === " ") {
-                    } else {
-                        vclean = vclean + v.substr(i, 1);
+                if (v != null) {
+                    for (var i = 0; i < 30; i++) {
+                        if (v.substr(i, 1) === " ") {
+                        } else {
+                            vclean = vclean + v.substr(i, 1);
+                        }
                     }
                 }
                 return vclean;
